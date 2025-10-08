@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formulir Pendaftaran Internet - covernet.id</title>
+  <title>✅ Formulir Pendaftaran Internet - covernet.id</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
@@ -28,6 +28,7 @@
       padding: 0.75rem;
       border-radius: 0.5rem;
       width: 100%;
+      transition: background 0.2s;
     }
     button:hover { background-color: #ea580c; }
   </style>
@@ -37,7 +38,13 @@
     <h2 class="text-2xl font-bold text-center mb-2 text-orange-400">Formulir Pendaftaran Internet</h2>
     <p class="text-center text-sm mb-6 text-gray-400">PT Infinity Nusa Digital</p>
 
-    <form id="bnetfitForm" class="space-y-4">
+    <!-- FORM TANPA FETCH, LANGSUNG KE GOOGLE SCRIPT -->
+    <form action="https://script.google.com/macros/s/AKfycbylNUlbItKD7xPNIfTFKc6skrAwHkeAemw2J8s0_2ybO0Tc-wp8kLFKHQKUFjk6TDrR/exec"
+          method="POST"
+          target="_self"
+          onsubmit="return showSuccessMessage()"
+          class="space-y-4">
+
       <div>
         <label>Nama (Usaha / Pemilik)</label>
         <input type="text" name="Nama (Usaha)" required placeholder="Nama usaha / pemilik" />
@@ -59,7 +66,7 @@
       </div>
 
       <div>
-        <label>Kapasitas Paket</label>
+        <label>📌 Kapasitas Paket</label>
         <select name="Kapasitas" required class="bg-[#1f2937] text-white">
           <option value="">Pilih kapasitas</option>
           <option>10 Mbps</option>
@@ -83,50 +90,22 @@
     </form>
 
     <p class="text-xs text-center text-gray-500 mt-6">
-      © 2025 PT Jala Lintas Media – Bnetfit Business
+      © 2025 PT Infinity Nusa Digital – Business
     </p>
   </div>
 
   <script>
-    const form = document.getElementById('bnetfitForm');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-      const googleScriptURL = "https://script.google.com/macros/s/AKfycbwchMVHDt0v8DI7xIub6g3uDfRXxb0oHJvHYvFNBnka1P6jlsVlCjk8UOZwHbvjYzgWKg/exec"; // GANTI DENGAN LINK SCRIPT KAMU
-      const formSubmitEmail = "https://formsubmit.co/ajax/irfan.ts.sugianto@gmail.com";
-
-      try {
-        // Kirim ke Google Sheet
-        await fetch(googleScriptURL, { method: 'POST', body: formData });
-
-        // Kirim notifikasi email via FormSubmit
-        await fetch(formSubmitEmail, { method: 'POST', body: formData });
-
-        // Tampilkan popup sukses
-        Swal.fire({
-          icon: 'success',
-          title: 'Pendaftaran Berhasil!',
-          text: 'Data Anda telah terkirim ke sistem kami.',
-          confirmButtonColor: '#f97316',
-          background: '#1f2937',
-          color: '#fff',
-        });
-
-        form.reset();
-      } catch (error) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Gagal Mengirim!',
-          text: 'Periksa koneksi internet atau coba lagi nanti.',
-          confirmButtonColor: '#f97316',
-          background: '#1f2937',
-          color: '#fff',
-        });
-      }
-    });
+    function showSuccessMessage() {
+      Swal.fire({
+        icon: 'success',
+        title: 'Pendaftaran Berhasil!',
+        text: 'Data Anda telah terkirim ke sistem kami.',
+        confirmButtonColor: '#f97316',
+        background: '#1f2937',
+        color: '#fff',
+      });
+      return true; // tetap kirim form
+    }
   </script>
 </body>
 </html>
-
